@@ -28,14 +28,13 @@ export default {
   },
   methods: {
     clear() {
-      console.log('clear: ');
+      // todo bug fix with clear after choose
       this.text = '';
+      this.$emit('input', '');
     },
     input(text) {
       // eslint-disable-next-line arrow-parens
       this.getItems(text).then(list => {
-        console.log('list: ', list);
-
         this.result = list;
       });
     },

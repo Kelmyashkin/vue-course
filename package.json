@@ -12,7 +12,20 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "jest": "jest",
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "json", "vue"],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "snapshotSerializers": ["<rootDir>/node_modules/jest-serializer-vue"]
   },
   "dependencies": {
     "vue": "^2.5.2",
@@ -72,7 +85,12 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "@storybook/vue": "^3.3.14",
+    "@storybook/addon-actions": "^3.3.14",
+    "@storybook/addon-links": "^3.3.14",
+    "@storybook/addons": "^3.3.14",
+    "babel-preset-vue": "^2.0.1"
   },
   "engines": {
     "node": ">= 6.0.0",
