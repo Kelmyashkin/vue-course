@@ -1,11 +1,13 @@
 <template>
     <div class="root">
-        <input class="field" type="text" v-model="text" @input="input(text)" @blur="clear" />
+        <p>currentText is '{{currentText}}'</p>
+        <p>isChoosed is '{{isChoosed}}'</p>
+        <input class="field" type="text" v-model="currentText" @input="edit" @blur="clear" />
         <div class="result" v-show="result.length">
           <div v-for="item in result" :key="item.value" @click="choose(item)">
             <slot name="item" :item="item">
               <p>
-                {{item.value}}
+                {{item}}
               </p>
             </slot>
           </div>
@@ -17,32 +19,37 @@
 export default {
   name: 'autocomplete',
   props: {
-    value: String,
+    value: [Object, String],
     getItems: Function,
   },
   data() {
     return {
-      text: '',
+      currentText: '',
+      isChoosed: false,
       result: [],
     };
   },
   methods: {
     clear() {
-      // todo bug fix with clear after choose
-      this.text = '';
-      this.$emit('input', '');
+      if (!this.isChoosed) {
+        this.currentText = '';
+      }
     },
-    input(text) {
+    edit(event) {
+      this.isChoosed = false;
       // eslint-disable-next-line arrow-parens
-      this.getItems(text).then(list => {
+
+      this.getItems(event.data).then(list => {
         this.result = list;
       });
     },
     choose(item) {
-      this.text = item.value;
+      // todo ask what to show in input on choose
+      this.currentText =
+        typeof item === 'string' ? item : item.value || item.name;
       this.result = [];
-      console.log('choosed item: ', item);
-      this.$emit('input', item.value);
+      this.isChoosed = true;
+      this.$emit('input', item);
     },
   },
 };
@@ -72,17 +79,17 @@ export default {
 }
 
 .field,
-.result p {
+.result > * {
   padding: 4px;
   margin: 0;
   color: #000;
 }
 
-.result p:nth-child(2n + 1) {
+.result > *:nth-child(2n + 1) {
   background: #f6f6f6;
 }
 
-.result p:hover {
+.result > *:hover {
   background: #e5e5e5;
 }
 </style>

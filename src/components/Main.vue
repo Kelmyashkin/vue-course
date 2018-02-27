@@ -3,7 +3,7 @@
     <p>{{value}}</p>
     <Autocomplete v-model="value" :getItems="getItems">
       <template slot="item" slot-scope="props">
-        <p>{{props.item.value}} <b>({{props.item.number}})</b></p>
+        <p>{{props.item.name}} <b>({{props.item.value}})</b></p>
       </template>
     </Autocomplete>
   </div>
@@ -27,10 +27,10 @@ export default {
       return new Promise(resolve => {
         setTimeout(() => {
           const array = [
-            { value: 'Aaaabb', number: 111.11 },
-            { value: 'BlaBlaBla', number: 122.11 },
-            { value: 'bbbbbbbb', number: 13.11 },
-            { value: 'Dadadada', number: 44.11 },
+            { name: 'Aaaabb', value: 111.11 },
+            { name: 'BlaBlaBla', value: 122.11 },
+            { name: 'bbbbbbbb', value: 13.11 },
+            { name: 'Dadadada', value: 44.11 },
           ];
           resolve(
             array.filter(item =>
