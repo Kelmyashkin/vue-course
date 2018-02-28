@@ -1,7 +1,7 @@
 <template>
     <div class="root">
-        <p>currentText is '{{currentText}}'</p>
-        <p>isChoosed is '{{isChoosed}}'</p>
+        <!-- <p>currentText is '{{currentText}}'</p>
+        <p>isChoosed is '{{isChoosed}}'</p> -->
         <input class="field" type="text" v-model="currentText" @input="edit" @blur="clear" />
         <div class="result" v-show="result.length">
           <div v-for="item in result" :key="item.value" @click="choose(item)">

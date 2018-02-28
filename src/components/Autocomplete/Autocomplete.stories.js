@@ -2,7 +2,6 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 
-// eslint-disable-next-line import/extensions
 import Autocomplete from './Autocomplete.vue';
 
 const testArray = [

@@ -1,20 +1,22 @@
 <template>
   <div class="hello">
     <p>{{value}}</p>
-    <Autocomplete v-model="value" :getItems="getItems">
+    <!-- <Autocomplete v-model="value" :getItems="getItems">
       <template slot="item" slot-scope="props">
         <p>{{props.item.name}} <b>({{props.item.value}})</b></p>
       </template>
-    </Autocomplete>
+    </Autocomplete> -->
+    <crypto-currency-widget name="BTC" />
   </div>
 </template>
 
 <script>
 import Autocomplete from './Autocomplete/Autocomplete.vue';
+import CryptoCurrencyWidget from './CryptoCurrencyWidget/CryptoCurrencyWidget.vue';
 
 export default {
   name: 'Main',
-  components: { Autocomplete },
+  components: { Autocomplete, CryptoCurrencyWidget },
   data() {
     return {
       value: '',
