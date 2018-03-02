@@ -1,16 +1,33 @@
 <template>
     <span :class="{ decreased: value < forCompare }"> 
-      ({{format}}%)
+      ({{format(delta)}}%)
     </span>
 </template>
 
 <script>
-import compareValueMixin from '../../mixins/compareValueMixin';
 import formatValueMixin from '../../mixins/formatValueMixin';
 
 export default {
   name: 'CurrencyDelta',
-  mixins: [compareValueMixin, formatValueMixin],
+  mixins: [formatValueMixin],
+  props: {
+    value: Number,
+  },
+  data() {
+    return {
+      forCompare: 0,
+    };
+  },
+  mounted() {
+    this.forCompare = this.value;
+  },
+  computed: {
+    delta() {
+      const delta = (this.value - this.forCompare) / this.forCompare;
+
+      return Number.isFinite(delta) && !Number.isNaN(delta) ? delta * 100 : 0;
+    },
+  },
 };
 </script>
 

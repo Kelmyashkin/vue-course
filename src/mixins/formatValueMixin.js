@@ -1,10 +1,8 @@
 export default {
-  props: {
-    value: Number,
-  },
-  computed: {
-    format() {
-      return this.value.toFixed(2);
+  methods: {
+    format(value) {
+      const val = (value / 1).toFixed(2);
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
   },
 };

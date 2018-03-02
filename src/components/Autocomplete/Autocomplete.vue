@@ -1,17 +1,15 @@
 <template>
     <div class="root">
-        <!-- <p>currentText is '{{currentText}}'</p>
-        <p>isChoosed is '{{isChoosed}}'</p> -->
-        <input class="field" type="text" v-model="currentText" @input="edit" @blur="clear" />
-        <div class="result" v-show="result.length">
-          <div v-for="item in result" :key="item.value" @click="choose(item)">
-            <slot name="item" :item="item">
-              <p>
-                {{item}}
-              </p>
-            </slot>
-          </div>
+      <input class="field" type="text" v-model="currentText" @input="edit" @blur="clear" />
+      <div class="result" v-show="result.length">
+        <div v-for="item in result" :key="item.value" @click="choose(item)">
+          <slot name="item" :item="item">
+            <p>
+              {{item}}
+            </p>
+          </slot>
         </div>
+      </div>
     </div>
 </template>
 
@@ -37,8 +35,6 @@ export default {
     },
     edit(event) {
       this.isChoosed = false;
-      // eslint-disable-next-line arrow-parens
-
       this.getItems(event.data).then(list => {
         this.result = list;
       });

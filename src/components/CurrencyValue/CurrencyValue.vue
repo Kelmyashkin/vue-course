@@ -1,19 +1,29 @@
 <template>
     <span :class="{ decreased: value < forCompare }"> 
-      ({{format}}%)
+      ${{format(value)}}
     </span>
 </template>
 
 <script>
-import compareValueMixin from '../../mixins/compareValueMixin';
 import formatValueMixin from '../../mixins/formatValueMixin';
 
 export default {
   name: 'CurrencyValue',
-  mixins: [compareValueMixin, formatValueMixin],
+  mixins: [formatValueMixin],
+  props: {
+    value: Number,
+  },
+  data() {
+    return {
+      forCompare: 0,
+    };
+  },
+  mount() {
+    this.forCompare = this.value;
+  },
   watch: {
-    value(val) {
-      this.forCompare = val;
+    value(newValue, oldValue) {
+      this.forCompare = oldValue;
     },
   },
 };

@@ -6,7 +6,9 @@
         <p>{{props.item.name}} <b>({{props.item.value}})</b></p>
       </template>
     </Autocomplete> -->
-    <crypto-currency-widget name="BTC" />
+    <div class="list">
+      <crypto-currency-widget :name="c" v-for="c in list" :key="c" />
+    </div>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ export default {
   data() {
     return {
       value: '',
+      list: ['BTC', 'ETH', 'LTC', 'TRX', 'NEO', 'BCH', 'XRP', 'ETC', 'BNB'],
     };
   },
   methods: {
@@ -48,5 +51,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 </style>

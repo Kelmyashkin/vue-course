@@ -1,26 +1,36 @@
 /* eslint-disable */
-import Autocompete from './Autocompete.vue';
+import Autocompete from './Autocomplete.vue';
 import { shallow } from '@vue/test-utils';
 
 describe('Autocomplete.vue', () => {
-  //   it('renders li for each item in props.items', () => {
-  //     // Arrange
-  //     const items = ['a', 'b'];
-  //     // Act
-  //     const wrapper = shallow(List, {
-  //       propsData: { items },
-  //     });
-  //     // Assert
-  //     expect(wrapper.findAll('li')).toHaveLength(items.length);
+  it('render no elements', () => {
+    // Arrange
+    const promise = value => Promise.resolve([value, 'BTC', 'ETH']);
+
+    // Act
+    const wrapper = shallow(Autocompete, {
+      value: '',
+      getItems: promise,
+    });
+
+    // Assert
+    expect(wrapper.findAll('p')).toHaveLength(0);
+  });
+
+  // it('renders after input', () => {
+  //   // Arrange
+  //   const promise = value => Promise.resolve(['BTC', 'ETH']);
+
+  //   // Act
+  //   const wrapper = shallow(Autocompete, {
+  //     propsData: {
+  //       value: '',
+  //       getItems: promise,
+  //     },
   //   });
-  //   it('renders No data message when items are empty', () => {
-  //     // Arrange
-  //     const items = [];
-  //     // Act
-  //     const wrapper = shallow(List, {
-  //       propsData: { items },
-  //     });
-  //     // Assert
-  //     expect(wrapper.find('ul').text()).toMatch('Nod data');
-  //   });
+  //   wrapper.find('input').trigger('input');
+
+  //   // Assert
+  //   expect(wrapper.html()).toHaveLength(3);
+  // });
 });
