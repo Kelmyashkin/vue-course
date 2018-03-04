@@ -17,14 +17,23 @@
 export default {
   name: 'autocomplete',
   props: {
-    value: [Object, String],
-    getItems: Function,
+    value: {
+      type: [String, Object],
+    },
+    getItems: {
+      type: Function,
+      required: true,
+    },
+    getTextFromItem: {
+      type: Function,
+    },
   },
   data() {
     return {
       currentText: '',
       isChoosed: false,
       result: [],
+      lastCall: null,
     };
   },
   methods: {
@@ -35,14 +44,21 @@ export default {
     },
     edit(event) {
       this.isChoosed = false;
-      this.getItems(event.data).then(list => {
+      if (this.lastCall && this.lastCall.abort) {
+        this.lastCall.abort();
+      }
+
+      const items = this.getItems(event.data);
+      this.lastCall = items;
+
+      items.then(list => {
         this.result = list;
+        this.lastCall = null;
       });
     },
     choose(item) {
-      // todo ask what to show in input on choose
       this.currentText =
-        typeof item === 'string' ? item : item.value || item.name;
+        typeof item === 'string' ? item : this.getTextFromItem(item);
       this.result = [];
       this.isChoosed = true;
       this.$emit('input', item);

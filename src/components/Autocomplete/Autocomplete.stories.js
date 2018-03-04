@@ -109,6 +109,9 @@ storiesOf('Autocomplete', module).add('Object example with template', () => ({
         ),
       );
     },
+    getTextFromItem(item) {
+      return item.name;
+    },
   },
   data() {
     return {
@@ -118,7 +121,7 @@ storiesOf('Autocomplete', module).add('Object example with template', () => ({
   template: `
   <div>
     <p>Value is '{{value}}'</p>
-    <Autocomplete v-model="value" :getItems="getItems">
+    <Autocomplete v-model="value" :getItems="getItems" :getTextFromItem="getTextFromItem">
       <template slot="item" slot-scope="props">
         <p>{{props.item.name}} <b>({{props.item.value}})</b></p>
       </template>
@@ -126,3 +129,34 @@ storiesOf('Autocomplete', module).add('Object example with template', () => ({
   </div>
   `,
 }));
+
+// storiesOf('Autocomplete', module).add('Example with abortable promise', () => ({
+//   components: { Autocomplete },
+//   methods: {
+//     getItems(text) {
+//       if (!text) return Promise.resolve([]);
+
+//       const p = getPromise().then(currency =>
+//         currency
+//           .filter(c => c.name.toLowerCase().startsWith(text.toLowerCase()))
+//           .map(c => c.name),
+//       );
+
+//       // p.abort = () => console.log(111);
+
+//       return p;
+//     },
+//   },
+//   data() {
+//     return {
+//       value: '',
+//     };
+//   },
+//   template: `
+//   <div>
+//     <p>Value is '{{value}}'</p>
+//     <Autocomplete v-model="value" :getItems="getItems">
+//     </Autocomplete>
+//   </div>
+//   `,
+// }));
