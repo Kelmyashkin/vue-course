@@ -17,12 +17,7 @@ const getPromise = () => {
   // let abort;
   const promise = new Promise((resolve, reject) => {
     const timeout = setTimeout(() => resolve(testArray), 1000);
-    // abort = () => {
-    //   clearTimeout(timeout);
-    //   reject();
-    // };
   });
-  // promise.abort = abort;
   return promise;
 };
 
@@ -130,33 +125,53 @@ storiesOf('Autocomplete', module).add('Object example with template', () => ({
   `,
 }));
 
-// storiesOf('Autocomplete', module).add('Example with abortable promise', () => ({
-//   components: { Autocomplete },
-//   methods: {
-//     getItems(text) {
-//       if (!text) return Promise.resolve([]);
+class AbortablePromise {
+  constructor(promise) {
+    this._promise = promise;
+  }
 
-//       const p = getPromise().then(currency =>
-//         currency
-//           .filter(c => c.name.toLowerCase().startsWith(text.toLowerCase()))
-//           .map(c => c.name),
-//       );
+  then() {
+    return this._promise.then;
+  }
 
-//       // p.abort = () => console.log(111);
+  abort() {
+    console.log('aborted');
+  }
+}
 
-//       return p;
-//     },
-//   },
-//   data() {
-//     return {
-//       value: '',
-//     };
-//   },
-//   template: `
-//   <div>
-//     <p>Value is '{{value}}'</p>
-//     <Autocomplete v-model="value" :getItems="getItems">
-//     </Autocomplete>
-//   </div>
-//   `,
-// }));
+storiesOf('Autocomplete', module).add('Example with abortable promise', () => ({
+  components: { Autocomplete },
+  methods: {
+    getItems(text) {
+      if (!text) return Promise.resolve([]);
+      console.log(text);
+      const p = getPromise().then(currency =>
+        currency
+          .filter(c => c.name.toLowerCase().startsWith(text.toLowerCase()))
+          .map(c => c.name),
+      );
+
+      return {
+        abort() {
+          this.aborted = true;
+          console.log('abort');
+        },
+        then(...args) {
+          return p.then(...args);
+        },
+      };
+    },
+  },
+  data() {
+    return {
+      value: '',
+    };
+  },
+  template: `
+  <div>
+    <p>Value is '{{value}}'</p>
+    <Autocomplete v-model="value" :getItems="getItems">
+    </Autocomplete>
+  </div>
+  `,
+}));

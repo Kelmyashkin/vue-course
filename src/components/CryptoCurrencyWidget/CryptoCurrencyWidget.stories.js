@@ -4,15 +4,12 @@ import { action } from '@storybook/addon-actions';
 
 import CryptoCurrencyWidget from './CryptoCurrencyWidget.vue';
 
-storiesOf('Autocomplete', module).add(
-  'Simple string example no templates',
-  () => ({
-    components: { CryptoCurrencyWidget },
-    template: `
+storiesOf('CryptoCurrencyWidget', module).add('BTC example', () => ({
+  components: { CryptoCurrencyWidget },
+  template: `
     <div>
       <CryptoCurrencyWidget name="BTC">
       </CryptoCurrencyWidget>
     </div>
     `,
-  }),
-);
+}));

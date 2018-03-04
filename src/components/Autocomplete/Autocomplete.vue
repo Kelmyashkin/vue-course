@@ -48,12 +48,14 @@ export default {
         this.lastCall.abort();
       }
 
-      const items = this.getItems(event.data);
+      const items = this.getItems(this.currentText);
       this.lastCall = items;
 
       items.then(list => {
-        this.result = list;
-        this.lastCall = null;
+        if (items === this.lastCall) {
+          this.result = list;
+          this.lastCall = null;
+        }
       });
     },
     choose(item) {
