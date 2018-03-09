@@ -3,7 +3,7 @@ import { shallow } from '@vue/test-utils';
 import CurrencyDelta from './CurrencyDelta.vue';
 
 describe('CurrencyDelta.vue', () => {
-  it('render first value', () => {
+  it('when get first value should show zero value', () => {
     // Arrange
     const value = 1500.55;
 
@@ -16,7 +16,7 @@ describe('CurrencyDelta.vue', () => {
     expect(wrapper.find('span').text()).toMatch('(0.00%)');
   });
 
-  it('render changed positive value', () => {
+  it('when get value bigger then previose should show positive value', () => {
     // Arrange
     const value = 100;
 
@@ -30,7 +30,7 @@ describe('CurrencyDelta.vue', () => {
     expect(wrapper.find('span').text()).toMatch('(10.00%)');
   });
 
-  it('render changed negative value', () => {
+  it('when get value smaller then previose should show negative value', () => {
     // Arrange
     const value = 100;
 
@@ -44,7 +44,7 @@ describe('CurrencyDelta.vue', () => {
     expect(wrapper.find('span').text()).toMatch('(-10.00%)');
   });
 
-  it('render changed positive color', () => {
+  it('when get value bigger then previose should add decreased class', () => {
     // Arrange
     const value = 100;
 
@@ -58,7 +58,7 @@ describe('CurrencyDelta.vue', () => {
     expect(wrapper.contains('span.decreased')).toBeFalsy();
   });
 
-  it('render changed negative color', () => {
+  it('when get value smaller then previose should remove decreased class', () => {
     // Arrange
     const value = 100;
 

@@ -3,7 +3,7 @@ import Autocompete from './Autocomplete.vue';
 import { shallow } from '@vue/test-utils';
 
 describe('Autocomplete.vue', () => {
-  it('render no elements', () => {
+  it('when component starts should not show list of options', () => {
     // Arrange
 
     // Act
@@ -15,7 +15,7 @@ describe('Autocomplete.vue', () => {
     expect(wrapper.find('.result').isVisible()).toBeFalsy();
   });
 
-  it('render 2 elements', () => {
+  it('when there are 2 elements in list of options should render 2 elements', () => {
     // Arrange
     const list = ['BTC', 'ETH'];
 
@@ -29,7 +29,7 @@ describe('Autocomplete.vue', () => {
     expect(wrapper.findAll('.result div')).toHaveLength(2);
   });
 
-  it('check blur before choose', () => {
+  it('when input lost focus should clear input value', () => {
     // Arrange
 
     // Act
@@ -46,7 +46,7 @@ describe('Autocomplete.vue', () => {
     expect(wrapper.find('input').element.value).toMatch('');
   });
 
-  it('check blur after choose', () => {
+  it('after element choosed when lost focus should not clear input value', () => {
     // Arrange
 
     // Act
@@ -63,7 +63,7 @@ describe('Autocomplete.vue', () => {
     expect(wrapper.find('input').element.value).toMatch('bt');
   });
 
-  it('render choose element', () => {
+  it('when choose option should hide list of options', () => {
     // Arrange
     const list = ['BTC', 'ETH'];
 
@@ -76,6 +76,20 @@ describe('Autocomplete.vue', () => {
 
     // Assert
     expect(wrapper.findAll('.result div')).toHaveLength(0);
+  });
+
+  it('when choose option should set value to input', () => {
+    // Arrange
+    const list = ['BTC', 'ETH'];
+
+    // Act
+    const wrapper = shallow(Autocompete, {
+      propsData: { getItems: text => Promise.resolve([]) },
+    });
+    wrapper.setData({ result: list });
+    wrapper.find('.result div').trigger('click');
+
+    // Assert
     expect(wrapper.find('input').element.value).toMatch('BTC');
   });
 });

@@ -3,7 +3,7 @@ import { shallow } from '@vue/test-utils';
 import CryptoCurrencyWidget from './CryptoCurrencyWidget.vue';
 
 describe('CryptoCurrencyWidget.vue', () => {
-  it('render title', () => {
+  it('when send name should render title with name', () => {
     // Arrange
     const name = 'BTC';
 
@@ -17,7 +17,7 @@ describe('CryptoCurrencyWidget.vue', () => {
     expect(wrapper.find('h2').text()).toMatch('BTC - USD');
   });
 
-  it('show loading', () => {
+  it('when component is mounted should show loading', () => {
     // Arrange
     const value = 'BTC';
 
@@ -30,7 +30,7 @@ describe('CryptoCurrencyWidget.vue', () => {
     expect(wrapper.find('div.loading').exists()).toBeTruthy();
   });
 
-  it('hide loading', () => {
+  it('when isLoading false should remove loading spinner', () => {
     // Arrange
     const value = 'BTC';
 

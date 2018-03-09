@@ -3,7 +3,7 @@ import { shallow } from '@vue/test-utils';
 import CurrencyValue from './CurrencyValue.vue';
 
 describe('CurrencyValue.vue', () => {
-  it('render first value', () => {
+  it('when get value should show it', () => {
     // Arrange
     const value = 1500.55;
 
@@ -16,7 +16,7 @@ describe('CurrencyValue.vue', () => {
     expect(wrapper.find('span').text()).toMatch('$1,500.55');
   });
 
-  it('render changed positive value', () => {
+  it('when get other value should show changed value', () => {
     // Arrange
     const value = 1000;
 
@@ -30,21 +30,7 @@ describe('CurrencyValue.vue', () => {
     expect(wrapper.find('span').text()).toMatch('$1,100.55');
   });
 
-  it('render changed negative value', () => {
-    // Arrange
-    const value = 1000;
-
-    // Act
-    const wrapper = shallow(CurrencyValue, {
-      propsData: { value },
-    });
-    wrapper.setProps({ value: 900.55 });
-
-    // Assert
-    expect(wrapper.find('span').text()).toMatch('$900.55');
-  });
-
-  it('render changed positive color', () => {
+  it('when get value bigger than previouse should remove class decreased', () => {
     // Arrange
     const value = 100;
 
@@ -58,7 +44,7 @@ describe('CurrencyValue.vue', () => {
     expect(wrapper.contains('span.decreased')).toBeFalsy();
   });
 
-  it('render changed negative color', () => {
+  it('when get value smaller than previouse should add class decreased', () => {
     // Arrange
     const value = 100;
 
