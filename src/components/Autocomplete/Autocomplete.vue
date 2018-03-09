@@ -59,8 +59,12 @@ export default {
       });
     },
     choose(item) {
-      this.currentText =
-        typeof item === 'string' ? item : this.getTextFromItem(item);
+      if (this.getTextFromItem) {
+        this.currentText = this.getTextFromItem(item);
+      } else {
+        this.currentText = item;
+      }
+
       this.result = [];
       this.isChoosed = true;
       this.$emit('input', item);
